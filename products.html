@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>products</title>
+	<style>
+
+		#products {
+			width: 360px;
+			height: 70px;
+			margin: 50px auto;
+			padding-top: 360px;
+			background: url(./products-imgs/01big.jpg) no-repeat;
+		}
+
+		#products ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#products ul li {
+			float: left;
+			margin: 0 1px;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="products">
+		<ul>
+			<li><a class="link" href="javascript:;"><img src="products-imgs/01.jpg" alt=""></a></li>
+			<li><a class="link" href="javascript:;"><img src="products-imgs/02.jpg" alt=""></a></li>
+			<li><a class="link" href="javascript:;"><img src="products-imgs/03.jpg" alt=""></a></li>
+			<li><a class="link" href="javascript:;"><img src="products-imgs/04.jpg" alt=""></a></li>
+			<li><a class="link" href="javascript:;"><img src="products-imgs/05.jpg" alt=""></a></li>
+		</ul>
+	</div>
+	<script>
+		var products = document.getElementById('products');
+		var links = products.getElementsByTagName('a');
+		for (var index = 0; index<links.length; index++) {
+			links[index].onmouseover = (function (i) {
+				return function () {
+					products.style.backgroundImage = 'url(./products-imgs/0' + (i+1) + 'big.jpg';
+				}
+			})(index)
+		}
+
+		console.log($('#products'));
+		console.log($('.link'));
+
+		function $(selector) {
+			var firstChar = selector.charAt(0);
+			if(firstChar === '#') {
+				return document.getElementById(selector.slice(1));
+			} else if(firstChar === '.') {
+				return document.getElementsByClassName(selector.slice(1));
+			}
+		}
+	</script>
+</body>
+</html>
