@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>qrcodeClose</title>
+	<style>
+		#qrcode {
+			width: 94px;
+			height: 112px;
+			text-align: center;
+			color: #f04d2c;
+			border: 1px solid #eeeeee;
+			position: relative;
+			margin: 100px auto;
+			cursor: pointer;
+		}
+		#qrcode p {
+			margin: 0;
+			font-size: 11px;
+			line-height: 20px;
+		}
+
+		#qrcode img {
+			width: 80px;
+			height: 80px;
+		}
+
+		#qrcode i {
+			position: absolute;
+			left: -20px;
+			top: -1px;
+			width: 18px;
+			height: 18px;
+			border: 1px solid #eeeeee;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="qrcode">
+		<p>手机淘宝</p>
+		<a href=""><img src="https://img.alicdn.com/tps/i1/TB1h3IXGFXXXXXsXFXXDANtWXXX-175-175.png_.webp" alt=""></a>
+		<i id="close">x</i>
+	</div>
+
+	<script>
+		var close = document.getElementById('close');
+		close.onclick = function () {
+			document.getElementById('qrcode').style.display = 'none';
+		}
+	</script>
+</body>
+</html>

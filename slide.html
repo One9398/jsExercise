@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slide</title>
+	<style>
+		#slide {
+			width: 490px;
+			height: 170px;
+			border: 1px solid #e4e4e4;
+			padding: 2px;
+			margin: 100px auto;
+			position: relative;
+		}
+
+		#slide ul {
+			list-style: none;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			margin: 0;
+		}
+
+		#slide li {
+			float: left;
+			margin-right: 5px;
+			width: 18px;
+			height: 18px;
+			background: white;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 18px;
+			cursor: pointer;
+		}
+
+		#slide li:hover {
+			background: red;
+			color: white;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="slide">
+		<img src="images/01.jpg" alt="">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+	<script>
+		var liEles = document.getElementById('slide').getElementsByTagName('li');
+		var imgs = document.getElementById('slide').getElementsByTagName('img');
+		for (var index = 0; index<liEles.length; index++) {
+			liEles[index].onclick = function (i) {
+				return function () {
+					imgs[0].src = 'images/0' + (i+1) + '.jpg';
+				}
+			}(index)
+		}
+	</script>
+</body>
+</html>

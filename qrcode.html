@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style>
+		#qrcode-icon {
+			width: 50px;
+			height: 50px;
+			background: url(./images/bgs.png) no-repeat -159px -51px;
+			position: fixed;
+			top: 60%;
+			right: 10px;
+			cursor: pointer;
+		}
+
+		#qrcode-img {
+			position: absolute;
+			top: 0;
+			left: -150px;
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="qrcode-icon">
+		<div id="qrcode-img"><img src="images/456.png" alt=""></div>
+	</div>
+
+	<script>
+		var qrcodeIcon = document.getElementById('qrcode-icon');
+		qrcodeIcon.onmouseover = function () {
+			document.getElementById('qrcode-img').style.display='block';
+		};
+
+		qrcodeIcon.onmouseout = function () {
+			document.getElementById('qrcode-img').style.display='none';
+		};
+
+	</script>
+</body>
+</html>

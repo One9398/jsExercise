@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Skin</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: url(./images/1.jpg) no-repeat center top;
+		}
+
+		#skin-box {
+			width: 100%;
+			height: 200px;
+			background: rgba(255,255,255,0.3);
+			text-align: center;
+		}
+
+		#skin-box img {
+			width: 200px;
+			height: auto;
+			margin: 5px;
+			cursor: pointer;
+			margin-top: 35px;
+		}
+
+		#skin-box img:hover {
+			box-shadow: 0 0 2px 3px white;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="skin-box">
+		<img src="images/1.jpg" alt="">
+		<img src="images/2.jpg" alt="">
+		<img src="images/3.jpg" alt="">
+	</div>
+
+	<script>
+		var imgEles = document.getElementById('skin-box').getElementsByTagName('img');
+		var body = document.body;
+
+		for (var index = 0; index < imgEles.length; index++) {
+			imgEles[index].onclick = function (i) {
+				return function () {
+					body.style.backgroundImage = 'url(./images/' + (i+1)+'.jpg)';
+					console.log(body.style.backgroundImage);
+				}
+			}(index)
+		}
+	</script>
+</body>
+</html>
