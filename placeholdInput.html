@@ -3,8 +3,66 @@
 <head>
 	<meta charset="UTF-8">
 	<title>placeholderInput</title>
-</head>
-<body>
+	<style>
+		/*bd0 p0 outline0*/
+		#searchButton, #searchContent {
+			border: 0;
+			padding: 0;
+			outline: 0;
+			float: left;
+		}
 
+		/*w258 h40 m100 */
+		#searchBar {
+			width: 258px;
+			height: 40px;
+			margin: 100px auto;
+			background-color: pink;
+		}
+
+		/*w216 h40 bgc*/
+		#searchContent {
+			width: 206px;
+			height: 40px;
+			background: url(placeholderInput-imgs/left.jpg) no-repeat;
+			padding: 0 0 0 10px;
+			color: gray;
+		}
+
+		/*w42 h40*/
+
+		#searchButton {
+			width: 42px;
+			height: 40px;
+			background: url(placeholderInput-imgs/right.jpg) no-repeat;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="searchBar">
+		<input type="text" id="searchContent" value="请输入">
+		<button id="searchButton"></button>
+	</div>
+	<script>
+		var searchContent = document.getElementById('searchContent');
+		var oldContent = searchContent.value;
+
+		searchContent.onfocus = function () {
+			if (searchContent.value === oldContent) {
+				searchContent.value = "";
+				searchContent.style.color = 'black';
+			}
+		};
+
+		searchContent.onblur = function () {
+			if (searchContent.value.trim() === '') {
+				searchContent.style.color = 'gray';
+				searchContent.value = oldContent;
+			}
+
+		};
+
+	</script>
 </body>
 </html>
