@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>selectChange</title>
+
+	<style>
+		body {
+			margin: 0;
+			background: url(./images/1.jpg) no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<label for="skins">Change Skin</label>
+	<select name="skin" id="skins">
+		<option value="1">One</option>
+		<option value="2">Tow</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+	</select>
+	<script>
+		document.getElementById('skins').onchange = function () {
+			document.body.style.backgroundImage = "url(./images/" + this.value + ".jpg)";
+		};
+
+	</script>
+</body>
+</html>

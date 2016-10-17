@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tabSelect</title>
+	<style>
+
+		.d1 {
+			background: red;
+		}
+		.d2 {
+			background: wheat;
+		}
+		.d3 {
+			background: gray;
+		}
+		.d4 {
+			background: hotpink;
+		}
+		.d5 {
+			background: saddlebrown;
+		}
+
+		div {
+			display: none;
+			width: 300px;
+			height: 200px;
+		}
+
+		.current {
+			background: #f04d2c;
+		}
+
+		button {
+			border: 0;
+		}
+	</style>
+</head>
+<body>
+	<button>按钮</button>
+	<button>按钮</button>
+	<button>按钮</button>
+	<button>按钮</button>
+	<button>按钮</button>
+	<div class="d1"></div>
+	<div class="d2"></div>
+	<div class="d3"></div>
+	<div class="d4"></div>
+	<div class="d5"></div>
+	<script>
+		var btns = document.getElementsByTagName('button');
+		var divs = document.getElementsByTagName('div');
+
+		Array.prototype.forEach.call(btns, function (btn, index) {
+			btn.onmouseover = (function (i) {
+				return function () {
+					Array.prototype.forEach.call(btns, function (btn, index) {
+						btn.className = '';
+						divs[index].style.display = 'none';
+					});
+					btn.className = 'current';
+					divs[i].style.display = 'block';
+				};
+			})(index);
+		});
+
+	</script>
+</body>
+</html>
