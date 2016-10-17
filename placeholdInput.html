@@ -30,11 +30,36 @@
 		}
 
 		/*w42 h40*/
-
 		#searchButton {
 			width: 42px;
 			height: 40px;
 			background: url(placeholderInput-imgs/right.jpg) no-repeat;
+		}
+
+
+
+		/*w300 h40 m300 */
+		#searchBar2 {
+			width: 300px;
+			height: 40px;
+			margin: 200px auto;
+			position: relative;
+		}
+		/*h30 w300 p4*/
+		#searchContent2 {
+			height: 30px;
+			width: 300px;
+			padding-left: 6px;
+		}
+		
+		/*posa t10 l10 f12 c#ccc*/
+		#searchPlaceholder {
+			position: absolute;
+			top: 12px;
+			left: 10px;
+			font-size: 12px;
+			color: #ccc;
+			cursor: text;
 		}
 	</style>
 </head>
@@ -43,6 +68,10 @@
 	<div id="searchBar">
 		<input type="text" id="searchContent" value="请输入">
 		<button id="searchButton"></button>
+	</div>
+	<div id="searchBar2">
+		<input id="searchContent2"></input>
+		<label id="searchPlaceholder">请输入内容</label>
 	</div>
 	<script>
 		var searchContent = document.getElementById('searchContent');
@@ -55,13 +84,21 @@
 			}
 		};
 
+//		自动获取焦点
+		searchContent.focus();
 		searchContent.onblur = function () {
 			if (searchContent.value.trim() === '') {
 				searchContent.style.color = 'gray';
 				searchContent.value = oldContent;
 			}
-
 		};
+		
+		var searchContent2 = document.getElementById('searchContent2');
+		var tips = document.getElementById('searchPlaceholder');
+		searchContent2.oninput = function () {
+			console.log(searchContent2.value);
+			tips.style.display = (searchContent2.value === '' ? 'block' : 'none');
+		}
 
 	</script>
 </body>
