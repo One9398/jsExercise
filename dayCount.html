@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DayCount</title>
+	<style>
+		p,#day {
+			font-size: 32px;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<p>距离活动还有 <span id="dayCount">00天00小时00分00秒</span></p>
+	<script>
+		var endTime = new Date('2016-10-24T00:00').getTime();
+		var dayCount = document.getElementById('dayCount');
+		setInterval(function () {
+			var startTime = new Date().getTime();
+			var duration = parseInt((endTime - startTime)/1000);
+			var day = parseInt(duration/24/60/60);
+			var hour = parseInt(duration/60/60%24);
+			var min = parseInt(duration/60%60);
+			var sec = parseInt(duration%60);
+			day = day < 10 ? ('0'+day) : day;
+			min = min < 10 ? ('0'+min) : min;
+			sec = sec < 10 ? ('0'+sec) : sec;
+			dayCount.innerText = hour + '小时' + min + '分' + sec + '秒';
+		}, 1000);
+
+	</script>
+</body>
+</html>
