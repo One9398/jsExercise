@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>boxMove</title>
 	<style>
+		body {
+			margin: 0;
+		}
 		.box {
 			width: 50px;
 			height: 50px;
@@ -23,20 +26,23 @@
 		var btn = document.getElementById('btn');
 
 		btn.onclick = function () {
-			animateMove(this, 400, 20);
-
+			animateMove(box, 400, 10);
 		};
 
 		btn2.onclick = function () {
-			animateMove(this, 600, 10);
+			animateMove(box, 600, 10);
 		};
 
 		function animateMove(idEle, distance, step) {
+			clearInterval(idEle.move);
+
 			step = step || 10;
-			 idEle.move = setInterval(function () {
+			step = distance > idEle.offsetLeft ? step : -1 * step;
+
+			idEle.move = setInterval(function () {
 				var dest = box.offsetLeft + step;
 
-				if (dest >= distance) {
+				if (Math.abs(dest-distance) <= 10) {
 					dest = distance;
 					clearInterval(idEle.move);
 				}
