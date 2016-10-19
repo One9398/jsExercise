@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SimpleCarousel</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+		img {
+			vertical-align: top;
+		}
+
+		.box {
+			width: 490px;
+			height: 170px;
+			margin: 100px auto;
+			border: 1px solid #eeeeee;
+			padding: 5px;
+		}
+
+		.innerBox {
+			width: 490px;
+			height: 170px;
+			position: relative;
+			background: pink;
+			overflow: hidden;
+		}
+
+		.innerBox ul {
+			width: 1000%;
+			position: absolute;
+		}
+
+		.innerBox ul li {
+			float: left;
+		}
+
+		.square {
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+
+		.square span {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			text-align: center;
+			line-height: 16px;
+			margin: 0px 3px;
+			cursor: pointer;
+		}
+
+		.square span.current {
+			background: darksalmon;
+			color: white;
+		}
+
+	</style>
+</head>
+<body>
+<div class="box">
+	<div class="innerBox">
+		<ul id="slider">
+			<li><a href="#"><img src="SimpleCarousel-img/01.jpg" alt=""></a></li>
+			<li><a href="#"><img src="SimpleCarousel-img/02.jpg" alt=""></a></li>
+			<li><a href="#"><img src="SimpleCarousel-img/03.jpg" alt=""></a></li>
+			<li><a href="#"><img src="SimpleCarousel-img/04.jpg" alt=""></a></li>
+			<li><a href="#"><img src="SimpleCarousel-img/05.jpg" alt=""></a></li>
+		</ul>
+		<div class="square">
+			<span class="current">1</span>
+			<span>2</span>
+			<span>3</span>
+			<span>4</span>
+			<span class="">5</span>
+		</div>
+	</div>
+</div>
+<script>
+	var ul = document.getElementById('slider');
+	console.log(ul);
+	var square = document.getElementsByClassName('square')[0];
+	var points = square.children;
+	var step = 490;
+
+	for (var index = 0; index < points.length; index++) {
+		points[index].tag = index;
+		points[index].onmouseover = function () {
+
+			animateMove(ul,this.tag * step * -1, 20);
+			for (var i = 0; i < points.length; i++) {
+				points[i].className = '';
+			}
+			this.className = 'current';
+		}
+	}
+
+
+	function animateMove(idEle, distance, step) {
+		clearInterval(idEle.move);
+
+		step = step || 10;
+		step = distance > idEle.offsetLeft ? step : -1 * step;
+
+		idEle.move = setInterval(function () {
+			var dest = idEle.offsetLeft + step;
+
+			if (Math.abs(dest-distance) <= Math.abs(step)) {
+				dest = distance;
+				clearInterval(idEle.move);
+			}
+
+			idEle.style.left = dest + 'px';
+
+		}, 30);
+	}
+
+</script>
+</body>
+</html>
