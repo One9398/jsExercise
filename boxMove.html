@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>boxMove</title>
+	<style>
+		.box {
+			width: 50px;
+			height: 50px;
+			position: relative;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn">Move</button>
+	<button id="btn2">Move</button>
+	<div class="box" id="box"></div>
+	<script>
+
+		var box = document.getElementById('box');
+		var btn2 = document.getElementById('btn2');
+		var btn = document.getElementById('btn');
+
+		btn.onclick = function () {
+			animateMove(this, 400, 20);
+
+		};
+
+		btn2.onclick = function () {
+			animateMove(this, 600, 10);
+		};
+
+		function animateMove(idEle, distance, step) {
+			step = step || 10;
+			 idEle.move = setInterval(function () {
+				var dest = box.offsetLeft + step;
+
+				if (dest >= distance) {
+					dest = distance;
+					clearInterval(idEle.move);
+				}
+
+				box.style.left = dest + 'px';
+
+			}, 30);
+		}
+
+	</script>
+</body>
+</html>
