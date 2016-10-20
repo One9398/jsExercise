@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ScrollTopAnimate</title>
+	<style>
+		.rocket {
+			position: fixed;
+			right: 50px;
+			bottom: 100px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+<span class="rocket" id="backTop">
+    <img src="scrolltopImages/Top.jpg" alt=""/>
+</span>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<p>开始页面内容</p>
+<script>
+
+	var roket = document.getElementById('backTop');
+	window.onscroll = function () {
+		if (scrollOffset().top > 0) {
+			roket.style.display = 'block';
+		} else {
+			roket.style.display = 'none';
+		}
+
+	};
+
+	roket.onclick = function () {
+		var targetY = 0;
+		var currentY = scrollOffset().top;
+		console.log(currentY);
+		var timer = setInterval(function () {
+			var step = (targetY- currentY) /10;
+			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+			currentY += step;
+			window.scrollTo(0, currentY);
+
+			if (currentY === targetY) {
+				clearInterval(timer);
+			}
+
+		}, 30);
+	};
+
+	function scrollOffset() {
+		if (window.pageYOffset != null) {
+			return {
+				left: window.pageXOffset,
+				top: window.pageYOffset
+			};
+
+		} else if (document.compatMode === "CSS1Compat") {
+			return {
+				left: document.documentElement.scrollLeft,
+				top: document.documentElement.scrollTop
+			};
+		}
+
+		return {
+			left: document.body.scrollLeft,
+			top: document.body.scrollTop
+		};
+	}
+</script>
+</body>
+</html>
