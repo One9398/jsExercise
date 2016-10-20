@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DynamicSlider</title>
+	<style>
+		*{ padding:0; margin:0; list-style:none; border:0;}
+		.all{
+			width:500px;
+			height:200px;
+			padding:7px;
+			border:1px solid #ccc;
+			margin:100px auto;
+			position:relative;
+		}
+		.screen{
+			width:500px;
+			height:200px;
+			overflow:hidden;
+			position:relative;
+		}
+		.screen li{ width:500px; height:200px; overflow:hidden; float:left;}
+		.screen ul{ position:absolute; left:0; top:0px; width:3000px;}
+		.all ol{ position:absolute; right:10px; bottom:10px; line-height:20px; text-align:center;}
+		.all ol li{ float:left; width:20px; height:20px; background:#fff; border:1px solid #ccc; margin-left:10px; cursor:pointer;}
+		.all ol li.current{ background:yellow;}
+	</style>
+</head>
+<body>
+<div class="all" id='all'>
+	<div class="screen" id="screen">
+		<ul id="imgsBox">
+			<li><img src="DynamicSlider-images/1.jpg" width="500" height="200" /></li>
+			<li><img src="DynamicSlider-images/2.jpg" width="500" height="200" /></li>
+			<li><img src="DynamicSlider-images/3.jpg" width="500" height="200" /></li>
+			<li><img src="DynamicSlider-images/4.jpg" width="500" height="200" /></li>
+			<li><img src="DynamicSlider-images/5.jpg" width="500" height="200" /></li>
+		</ul>
+		<ol id="tipsBox"></ol>
+	</div>
+</div>
+<script>
+	(function () {
+		var imgsBox = document.getElementById('imgsBox');
+		var firstImg = imgsBox.children[0].cloneNode(true);
+		imgsBox.appendChild(firstImg);
+
+		var tipsBox = document.getElementById('tipsBox');
+		for (var index = 0; index < imgsBox.children.length-1; index++) {
+			var tipLi = document.createElement('li');
+			tipLi.innerText = index + 1;
+			tipsBox.appendChild(tipLi);
+		}
+		tipsBox.firstElementChild.className = 'current';
+
+		var lists = tipsBox.children;
+		var step = imgsBox.children[0].offsetWidth;
+
+		for (var j = 0; j < lists.length; j+=1) {
+			lists[j].index = j;
+			lists[j].onmouseover = function () {
+				for (var i = 0; i < lists.length; i+=1) {
+					lists[i].className = '';
+				}
+				this.className = 'current';
+				animateMove(imgsBox, -this.index * step);
+				setPlayKeyFrame(this.index);
+			};
+		}
+
+//		自动播放
+		var timer = setInterval(autoplay, 1000);
+		var key = 0;
+
+		function setPlayKeyFrame(num) {
+			key = num;
+		}
+
+		var sliderScreen = document.getElementById('screen');
+		sliderScreen.onmouseover = function () {
+			clearInterval(timer);
+		};
+
+		sliderScreen.onmouseout = function () {
+			timer = setInterval(autoplay, 1000);
+		};
+
+		function autoplay() {
+			key += 1;
+
+			if (key > lists.length) {
+				imgsBox.style.left = 0;
+				key = 1;
+			}
+			animateMove(imgsBox, -1 * key * step);
+
+			var square = key > lists.length - 1 ? 0 : key;
+			for (var i = 0; i < lists.length; i+=1) {
+				lists[i].className = '';
+			}
+			lists[square].className = 'current';
+		}
+
+		function animateMove(idEle, distance, step) {
+			clearInterval(idEle.move);
+
+			step = step || 10;
+			step = distance > idEle.offsetLeft ? step : -1 * step;
+
+			idEle.move = setInterval(function () {
+				var dest = idEle.offsetLeft + step;
+
+				if (Math.abs(dest-distance) <= Math.abs(step)) {
+					dest = distance;
+					clearInterval(idEle.move);
+				}
+
+				idEle.style.left = dest + 'px';
+
+			}, 10);
+		}
+	})();
+
+
+
+</script>
+</body>
+</html>

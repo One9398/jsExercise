@@ -64,6 +64,22 @@
 			color: white;
 		}
 
+		#box{width:490px;height:170px;padding:5px;
+			position: relative;border:1px solid #ccc;margin:100px auto 0;overflow:hidden;}
+		.ad{width:490px;height:170px;overflow:hidden;position:relative;}
+		#box img{width:490px;}
+		.ad ol{position:absolute;right:10px;bottom:10px;}
+		.ad ol li{width:20px;height:20px;line-height:20px;border:1px solid #ccc;text-align:center;background:#fff;float:left;margin-right:10px;cursor:pointer;_display:inline;}
+		.ad ol li.current{background:yellow;}
+		.ad ul li{float:left;}
+		.ad ul{ position:absolute; top:0; width:2940px;}
+		.ad ul li.current{display:block;}
+		#arr {
+			display: none;}
+		#arr span{ width:40px; height:40px; position:absolute; left:5px; top:50%; margin-top:-20px; background:#000; cursor:pointer; line-height:40px; text-align:center; font-weight:bold; font-family:'黑体'; font-size:30px; color:#fff; opacity:0.3; border:1px solid #fff;}
+		#arr #right{right:5px; left:auto;}
+
+
 	</style>
 </head>
 <body>
@@ -85,7 +101,21 @@
 		</div>
 	</div>
 </div>
+<div id="box" class="all">
+	<div class="ad">
+		<ul id="imgs">
+			<li><img src="slider2-images/1.jpg" /></li>
+			<li><img src="slider2-images/2.jpg" /></li>
+			<li><img src="slider2-images/3.jpg" /></li>
+			<li><img src="slider2-images/4.jpg" /></li>
+			<li><img src="slider2-images/5.jpg" /></li>
+		</ul>
+	</div>
+	<div id="arr"><span id="left"><</span><span id="right">></span></div>
+</div>
+
 <script>
+
 	var ul = document.getElementById('slider');
 	console.log(ul);
 	var square = document.getElementsByClassName('square')[0];
@@ -105,6 +135,36 @@
 	}
 
 
+//	slider2
+	var box = document.getElementById('box');
+	var arrowBox = document.getElementById('arr');
+	var imgs = document.getElementById('imgs');
+
+	box.onmouseover = function () {
+		arrowBox.style.display = 'block';
+	};
+
+	var distance = 0;
+	box.onmouseout = function () {
+		arrowBox.style.display = 'none';
+
+	};
+
+	arrowBox.children[0].onclick = function () {
+		distance += step;
+		distance = distance > 0 ? 0 : distance;
+		animateMove(imgs, distance);
+	};
+
+	arrowBox.children[1].onclick = function () {
+		distance -= step;
+		if (distance < (-1 * (imgs.children.length-1)*step)) {
+			distance = -1 * (imgs.children.length-1)*step;
+		}
+		animateMove(imgs, distance);
+
+	};
+
 	function animateMove(idEle, distance, step) {
 		clearInterval(idEle.move);
 
@@ -121,7 +181,7 @@
 
 			idEle.style.left = dest + 'px';
 
-		}, 30);
+		}, 10);
 	}
 
 </script>
