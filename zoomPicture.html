@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>zoomPicture</title>
+	<style>
+		* {margin: 0;padding: 0;}
+		.box {
+			width: 350px;
+			height: 350px;
+			margin:100px;
+			border: 1px solid #ccc;
+			position: relative;
+		}
+		.big {
+			width: 400px;
+			height: 400px;
+			position: absolute;
+			top: 0;
+			left: 360px;
+			border: 1px solid #ccc;
+			overflow: hidden;
+			display: none;
+		}
+		.mask {
+			width: 175px;
+			height: 175px;
+			background: rgba(255, 255, 0, 0.4);
+			position: absolute;
+			top: 0;
+			left: 0;
+			cursor: move;
+			display: none;
+		}
+		.small {
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+<div class="box">
+	<div class="small" id="smallBox">
+		<img src="zoom-images/001.jpg" alt=""/>
+		<div id="mask" class="mask"></div>
+	</div>
+	<div class="big" id="bigBox">
+		<img src="zoom-images/0001.jpg" alt=""/>
+	</div>
+</div>
+<script>
+	var smallBox = document.getElementById('smallBox');
+	var mask = document.getElementById('mask');
+	var bigBox = document.getElementById('bigBox');
+	smallBox.onmouseover = function () {
+		mask.style.display = 'block';
+		bigBox.style.display = 'block';
+	};
+
+	smallBox.onmousemove = function (e) {
+		var event = e || window.event;
+		// 获得鼠标在smallbox的坐标
+		var mouseX = event.pageX || event.clientX + scrollOffset().left;
+		var mouseY = event.pageY || event.clientY + scrollOffset().top;
+		mouseX -= smallBox.parentNode.offsetLeft;
+		mouseY -= smallBox.parentNode.offsetTop;
+		document.title = (mouseY + '-' + mouseX);
+
+		// 设置黄盒子在小盒子的位置. 紧跟鼠标
+		mask.style.left = Math.max(0, Math.min(mouseX - mask.offsetWidth / 2, 175)) + 'px';
+		mask.style.top = Math.max(0, Math.min(mouseY - mask.offsetHeight / 2, 175)) + 'px';
+
+		// 移动大图片在大盒子的中位置
+		var bigImage = bigBox.children[0];
+
+		var radio = (bigImage.offsetWidth - bigBox.offsetWidth) / (smallBox.offsetWidth - mask.offsetWidth);
+		console.log(radio);
+		bigImage.style.marginLeft = -radio * parseInt(mask.style.left) + 'px';
+		bigImage.style.marginTop = -radio * parseInt(mask.style.top) + 'px';
+	};
+
+	smallBox.onmouseout = function () {
+		mask.style.display = 'none';
+		bigBox.style.display = 'none';
+	};
+
+	function scrollOffset() {
+		if (window.pageYOffset != null) {
+			return {
+				left: window.pageXOffset,
+				top: window.pageYOffset
+			};
+
+		} else if (document.compatMode === "CSS1Compat") {
+			return {
+				left: document.documentElement.scrollLeft,
+				top: document.documentElement.scrollTop
+			};
+		}
+
+		return {
+			left: document.body.scrollLeft,
+			top: document.body.scrollTop
+		};
+	}
+
+</script>
+</body>
+</html>
