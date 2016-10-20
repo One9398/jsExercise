@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>navbarAnimate</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background-color: #333;
+		}
+
+		ul {
+			list-style: none;
+			padding:0;
+			margin:0;
+		}
+
+		.nav {
+			width: 800px;
+			height: 42px;
+			margin: 100px auto;
+			background: url(nav-images/rss.png) right center no-repeat #ffffff;
+			border-radius: 10px;
+			position: relative;
+		}
+		.nav ul {
+			position: relative;
+			z-index: 1;
+		}
+		.nav ul li{
+			display: block;
+			width: 83px;
+			line-height: 42px;
+			height: 42px;
+			float: left;
+			text-align: center;
+			/*cursor: pointer;*/
+		}
+		.nav ul li a {
+			text-decoration: none;
+			color: #333;
+			display: block;
+		}
+
+		.nav span {
+			width: 83px;
+			height: 42px;
+			float: left;
+			line-height: 42px;
+			background: url(nav-images/cloud.gif) no-repeat;
+			left: 0;
+			top: 0;
+			position: absolute;
+			z-index: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<span id="cusor"></span>
+		<ul id="nav-items">
+			<li><a href="#">导航栏1</a></li>
+			<li><a href="#">导航栏2</a></li>
+			<li><a href="#">导航栏3</a></li>
+			<li><a href="#">导航栏4</a></li>
+			<li><a href="#">导航栏5</a></li>
+		</ul>
+	</div>
+	<script>
+		var items = document.getElementById('nav-items').children;
+		var cusor = document.getElementById('cusor');
+		var currentOffset = 0;
+		for (var index = 0; index < items.length; index++) {
+			items[index].onmouseover = function () {
+				easeMove(cusor, this.offsetLeft);
+			};
+
+			items[index].onmouseout = function () {
+				easeMove(cusor, currentOffset);
+			};
+
+			items[index].onclick = function () {
+				currentOffset = this.offsetLeft;
+				easeMove(cusor, currentOffset);
+			}
+		}
+
+
+		function easeMove(obj, distance) {
+			clearInterval(obj.move);
+
+			var step = (distance - obj.offsetLeft)/10;
+			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+			obj.move = setInterval(function () {
+				var dest = obj.offsetLeft + step;
+
+				if (Math.abs(dest-distance) <= 10) {
+					dest = distance;
+					clearInterval(obj.move);
+				}
+
+				obj.style.left = dest + 'px';
+
+			}, 30);
+		}
+	</script>
+</body>
+</html>
