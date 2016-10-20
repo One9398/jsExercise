@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HorizontalBar</title>
+	<style>
+		#scroll {
+			width: 400px;
+			height: 12px;
+			background: #eee;
+			position: relative;
+			margin: 200px auto;
+		}
+
+		#mask {
+			width: 0;
+			height: 12px;
+			position: absolute;
+			background: beige;
+		}
+
+		#bar {
+			width: 10px;
+			height: 30px;
+			background: beige;
+			position: absolute;
+			left: 0;
+			top: -10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<h1 id="val">0%</h1>
+<div id="scroll">
+	<div id="bar"></div>
+	<div id="mask"></div>
+</div>
+<script>
+	var val = document.getElementById('val');
+	var bar = document.getElementById('bar');
+	var scroll = document.getElementById('scroll');
+
+	bar.onmousedown = function (e) {
+		e = e || window.event;
+		var offsetY = e.pageX - bar.offsetLeft;
+
+		document.onmousemove = function (e) {
+			e = e || window.event;
+			var targetY = e.pageX - offsetY;
+			if (targetY <0) {
+				targetY = 0;
+			} else if (targetY > scroll.offsetWidth - bar.offsetWidth) {
+				targetY = scroll.offsetWidth - bar.offsetWidth;
+			}
+
+			mask.style.width = targetY + 'px';
+			bar.style.left = targetY + 'px';
+			console.log(targetY/390);
+			val.innerText = (targetY/390 * 100).toFixed(0) + '%';
+		};
+
+
+		document.onmouseup = function () {
+			document.onmousemove = null;
+		}
+	}
+</script>
+</body>
+</html>
