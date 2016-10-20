@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DragBar</title>
+	<style>
+		* {margin: 0;padding: 0;}
+		.box {
+			width: 300px;
+			height: 500px;
+			border: 1px solid red;
+			margin: 100px;
+			position: relative;
+			overflow: hidden;
+		}
+		.content {
+			padding: 5px 18px 5px 5px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.scroll {
+			width: 18px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background-color: #eee;
+		}
+		.bar {
+			height: 100px;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: red;
+			border-radius:  10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div class="box">
+	<div class="content" id="content">
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+		我是文字内容，你是谁,我是文字内容，你是谁，
+	</div>
+	<div class="scroll" id="scroll">
+		<div id="bar" class="bar"></div>
+	</div>
+</div>
+
+
+<script>
+
+	var content = document.getElementById('content');
+	var scroll = document.getElementById('scroll');
+	var bar = document.getElementById('bar');
+
+	bar.style.height =  scroll.offsetHeight * scroll.offsetHeight / content.offsetHeight + 'px';
+	console.log(bar.style.height);
+
+	bar.onmousedown = function (e) {
+		e = e || window.event;
+		var offsetY = e.pageY - bar.offsetTop;
+		document.onmousemove = function (e) {
+			e = e || window.event;
+			var targetY = e.pageY - offsetY;
+			if (targetY < 0) {
+				targetY = 0;
+				content.style.top = '0px';
+			} else if (targetY > scroll.offsetHeight - bar.offsetHeight) {
+				targetY = scroll.offsetHeight - bar.offsetHeight;
+				content.style.top = -(content.offsetHeight - scroll.offsetHeight) + 'px';
+
+			} else {
+				var ratio = (content.offsetHeight - scroll.offsetHeight) / (scroll.offsetHeight - bar.offsetHeight);
+				contentY = targetY * ratio;
+				content.style.top = -contentY + 'px';
+			}
+
+			bar.style.top =  targetY + 'px';
+
+			window.getSelection() ? window.getSelection().removeAllRanges() : document.selection().empty();
+		};
+	};
+
+	document.onmouseup = function () {
+		document.onmousemove = null;
+	}
+
+
+</script>
+</body>
+</html>
