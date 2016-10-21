@@ -12,10 +12,23 @@
 			left: 50px;
 			top: 50px;
 		}
+		#box {
+			opacity: 0.5;
+		}
+
+		.mask {
+			width: 400px;
+			height: 200px;
+			background-color: red;
+			position: relative;
+			z-index: 2;
+
+		}
 	</style>
 </head>
 <body>
 <button id="btn">开始</button>
+<div class="mask"></div>
 <div id="box"></div>
 </body>
 
@@ -25,7 +38,7 @@
 	var box = document.getElementById('box');
 
 	btn.onclick = function () {
-		animate(box, {width: 200}, function () {
+		animate(box, {width: 200, opacity: 1, zIndex: 3}, function () {
 			animate(box, {height: 300}, function () {
 				alert('animation done')
 			});

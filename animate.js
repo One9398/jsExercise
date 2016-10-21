@@ -10,17 +10,40 @@ function animate(targetEle, attrs, callback) {
         var finshed = true;
         for (var key in attrs) {
             var targetValue = attrs[key];
-            var currentValue = parseInt(getStyle(targetEle, key));
-            var step = (targetValue - currentValue) / 10;
+            var currentValue = 0;
+            var step = 0;
+            if (isOpacity(key)) {
+                // opacity 0.1 -> 10%
+                currentValue = Math.round(getStyle(targetEle, key) * 100 || 100);
+                step = (100 * targetValue - currentValue) / 10;
+            } else {
+                currentValue = parseInt(getStyle(targetEle, key)) || 0;
+                step = (targetValue - currentValue) / 10;
+            }
 
             step = step > 0 ? Math.ceil(step) : Math.floor(step);
             currentValue += step ;
 
-            targetEle.style[key] = currentValue + 'px';
+            if (isOpacity(key)) {
+                targetEle.style.opacity = currentValue / 100;
+                targetEle.style.filter = "alpha(opacity=" + currentValue + ")";
 
-            if (currentValue != attrs[key]) {
+            } else if (isZIndex(key)) {
+                targetEle.style.zIndex = attrs[key];
+                console.log('z-index'+ attrs[key]);
+
+            } else {
+                targetEle.style[key] = currentValue + 'px';
+            }
+
+            if (isOpacity(key) && (currentValue !== attrs[key] * 100)) {
                 finshed = false;
             }
+
+            if (!isOpacity(key) && currentValue !== attrs[key]) {
+                finshed = false;
+            }
+
         }
 
         if (finshed) {
@@ -30,7 +53,16 @@ function animate(targetEle, attrs, callback) {
             }
         }
 
+
     }, 30);
+
+    function isOpacity(key) {
+        return key === "opacity";
+    }
+
+    function isZIndex(key) {
+        return key === 'zIndex';
+    }
 }
 
 function getStyle(obj, attr) {
